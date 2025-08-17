@@ -1,6 +1,11 @@
 # 프로젝트 목적
 R과 Python, Quarto 기반 웹사이트 개발 프로젝트 준비과정에서 반복적으로 생성되는 파일과 설정을 template로 제공합니다. 
 
+# 프로젝트 개요
+- 로컬참조는 github상태에서는 링크되지 않으므로 사용자분들은 원격참조를 사용하시기 바랍니다.
+- AI Agent를 위한 로컬참조: [Project-Overview](wiki/Project-Overview.md)
+- 사용자를 위한 원격참조: [Project Overview](https://github.com/RPythonStudy/rpy-quarto-template/wiki/Project-Overview)
+
 # README.md 목적
 - 이 프로젝트에서 `README.md`파일은 개발자가 AI agent에게 스크립트 자동생성을 요청할 때 AI agent가 참고해야 할 지침을 제공함을 목적으로 합니다.
 - VS Code에서 copilot를 사용하는 경우를 위해서 프로젝트 폴더의 `.github/copilot-instructions.md`로부터 `README.md`로 심볼릭 링크를 구성하였습니다.
