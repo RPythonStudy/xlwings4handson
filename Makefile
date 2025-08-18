@@ -1,2 +1,28 @@
+## Python 환경 및 로그 자동화 Makefile
+
+# 1. 가상환경 생성은 가장 먼저 분리
 venv:
-	bash ./scripts/setup_venv.sh
+	python scripts/setup_venv.py
+	@echo "[INFO] 파이썬 가상환경이 생성되었습니다."
+
+
+# 개별 실행 가능한 타겟 분리
+env:
+	python scripts/create_env.py
+	@echo "[INFO] .env 파일 설정 완료"
+
+logs:
+	python scripts/create_log_path.py
+	@echo "[INFO] 로그 경로 및 파일 생성 완료"
+
+import:
+	python scripts/set_import_path.py
+	@echo "[INFO] 파이썬 import 경로 설정 완료"
+
+check:
+	python scripts/check_syspath.py
+	@echo "[INFO] syspath 체크 완료"
+
+# 전체 자동화 finalize
+finalize: env logs import check
+	@echo "[INFO] 모든 설정이 완료되었습니다."
