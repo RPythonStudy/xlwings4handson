@@ -11,7 +11,7 @@ env:
 	python scripts/create_env.py
 	@echo "[INFO] .env 파일 설정 완료"
 
-logs:
+log:
 	python scripts/create_log_path.py
 	@echo "[INFO] 로그 경로 및 파일 생성 완료"
 
@@ -27,7 +27,11 @@ repo:
 	python scripts/change_repository_url.py
 	@echo "[INFO] 저장소 및 wiki 서브모듈 URL이 변경되었습니다."
 
+restore:
+	python scripts/restore_backup.py
+	@echo "[INFO] 백업이 복원되었습니다."
+
 # 전체 자동화 finalize
-finalize: env logs import check repo
+finalize: env log import check repo
 	@echo "[INFO] 모든 설정이 완료되었습니다."
 

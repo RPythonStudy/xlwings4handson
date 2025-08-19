@@ -1,7 +1,12 @@
-
 #!/usr/bin/env python3
-import sys, sysconfig
+import sys
+import os
+import sysconfig
 from pathlib import Path
+
+if os.environ.get('VIRTUAL_ENV') is None:
+    print("가상환경이 아닙니다. 스크립트를 중단합니다.")
+    sys.exit(1)
 
 # 1. 현재 파이썬 site-packages 위치
 site_packages = Path(sysconfig.get_paths()["purelib"])

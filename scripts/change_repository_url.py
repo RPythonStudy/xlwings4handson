@@ -12,3 +12,10 @@ log_info(f"Changed remote URL to {url}")
 wiki_url = f'git@github.com:{account}/{repo}.wiki.git'
 subprocess.run(['git', 'submodule', 'set-url', 'wiki', wiki_url], check=True)
 log_info(f"Changed submodule 'wiki' URL to {wiki_url}")
+
+# 모든 서브모듈을 master 브랜치로 체크아웃
+try:
+    subprocess.run(['git', 'submodule', 'foreach', 'git checkout master'], check=True)
+    log_info("모든 서브모듈을 master 브랜치로 체크아웃 완료")
+except Exception as e:
+    log_info(f"서브모듈 브랜치 체크아웃 실패: {e}")
