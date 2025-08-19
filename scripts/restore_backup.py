@@ -80,7 +80,7 @@ def main():
     # wiki 폴더 restore: 기존 파일 중 일부를 제외하고 삭제 후 백업에서 복사
     wiki_backup = backup_dir / "wiki"
     wiki_current = current_dir / "wiki"
-    preserve_files = {"Home.md", "Project-Overview.md", "Project-Setup-Guide.md"}
+    preserve_files = {"Home.md", "Project-Overview.md", "Project-Setup-Guide.md", ".git"}
     if not wiki_current.exists():
         wiki_current.mkdir(parents=True, exist_ok=True)
     # 기존 파일/폴더 중 preserve_files를 제외하고 삭제
