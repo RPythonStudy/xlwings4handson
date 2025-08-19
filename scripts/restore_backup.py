@@ -81,18 +81,22 @@ def main():
     wiki_backup = backup_dir / "wiki"
     wiki_current = current_dir / "wiki"
     preserve_files = {"Home.md", "Project-Overview.md", "Project-Setup-Guide.md"}
-    if wiki_backup.exists():
-        if not wiki_current.exists():
-            wiki_current.mkdir(parents=True, exist_ok=True)
-        # 기존 파일 중 preserve_files를 제외하고 삭제
-        for item in wiki_current.iterdir():
-            if item.is_file() and item.name not in preserve_files:
-                try:
+    if not wiki_current.exists():
+        wiki_current.mkdir(parents=True, exist_ok=True)
+    # 기존 파일/폴더 중 preserve_files를 제외하고 삭제
+    for item in wiki_current.iterdir():
+        if item.name not in preserve_files:
+            try:
+                if item.is_file():
                     item.unlink()
                     log_info(f"Deleted wiki file: {item}")
-                except Exception as e:
-                    log_error(f"Failed to delete wiki file {item}: {e}")
-        # 백업에서 모든 파일 복사 (덮어쓰기)
+                elif item.is_dir():
+                    shutil.rmtree(item)
+                    log_info(f"Deleted wiki folder: {item}")
+            except Exception as e:
+                log_error(f"Failed to delete wiki item {item}: {e}")
+    # 백업에서 복사 (백업이 있을 때만)
+    if wiki_backup.exists():
         for item in wiki_backup.iterdir():
             if item.is_file():
                 copy_item(item, wiki_current / item.name)
