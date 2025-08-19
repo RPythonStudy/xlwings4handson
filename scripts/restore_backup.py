@@ -94,4 +94,9 @@ def main():
     log_info("Backup restore completed.")
 
 if __name__ == "__main__":
+
     main()
+
+    # restore 후 Zone.Identifier 파일 일괄 삭제
+    import subprocess
+    subprocess.run(["find", ".", "-name", "Zone.Identifier", "-type", "f", "-delete"])
