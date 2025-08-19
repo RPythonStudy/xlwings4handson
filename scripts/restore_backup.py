@@ -77,17 +77,25 @@ def main():
     else:
         log_error(f"No src folder in backup: {src_backup}")
 
-    # wiki 폴더 내 이름이 중복되지 않는 파일 복사
+    # wiki 폴더 restore: 기존 파일 중 일부를 제외하고 삭제 후 백업에서 복사
     wiki_backup = backup_dir / "wiki"
     wiki_current = current_dir / "wiki"
+    preserve_files = {"Home.md", "Project-Overview.md", "Project-Setup-Guide.md"}
     if wiki_backup.exists():
         if not wiki_current.exists():
             wiki_current.mkdir(parents=True, exist_ok=True)
+        # 기존 파일 중 preserve_files를 제외하고 삭제
+        for item in wiki_current.iterdir():
+            if item.is_file() and item.name not in preserve_files:
+                try:
+                    item.unlink()
+                    log_info(f"Deleted wiki file: {item}")
+                except Exception as e:
+                    log_error(f"Failed to delete wiki file {item}: {e}")
+        # 백업에서 모든 파일 복사 (덮어쓰기)
         for item in wiki_backup.iterdir():
             if item.is_file():
-                dest_path = wiki_current / item.name
-                if not dest_path.exists():
-                    copy_item(item, dest_path)
+                copy_item(item, wiki_current / item.name)
     else:
         log_error(f"No wiki folder in backup: {wiki_backup}")
 
