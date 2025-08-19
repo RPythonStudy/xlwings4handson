@@ -23,6 +23,11 @@ check:
 	python scripts/check_syspath.py
 	@echo "[INFO] syspath 체크 완료"
 
+repo:
+	python scripts/change_repository_url.py
+	@echo "[INFO] 저장소 및 wiki 서브모듈 URL이 변경되었습니다."
+
 # 전체 자동화 finalize
-finalize: env logs import check
+finalize: env logs import check repo
 	@echo "[INFO] 모든 설정이 완료되었습니다."
+
