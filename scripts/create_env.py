@@ -32,3 +32,10 @@ with open(dst, 'w', encoding='utf-8') as f:
     f.write(content)
 
 print("[INFO] .env 파일이 생성되고, 경로 및 프로젝트명이 현재 폴더명으로 자동 치환되었습니다.")
+
+# .env 파일을 .env.example로 복사
+try:
+    shutil.copyfile(dst, src)
+    print("[INFO] .env.example 파일이 .env로부터 복사 생성되었습니다.")
+except Exception as e:
+    print(f"[ERROR] .env.example 복사 실패: {e}")
