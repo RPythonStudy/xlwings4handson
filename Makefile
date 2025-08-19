@@ -35,3 +35,8 @@ restore:
 finalize: env log import check repo
 	@echo "[INFO] 모든 설정이 완료되었습니다."
 
+# rlib: src/rlib의 파일을 src/r로 복사
+rlib:
+	python scripts/copy_rlib.py
+	@echo "[INFO] src/rlib의 파일이 src/r로 복사되었습니다."
+
