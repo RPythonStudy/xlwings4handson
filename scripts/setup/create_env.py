@@ -14,8 +14,9 @@ CUR_DIR_NAME = ROOT.name
 src = ROOT / '.env.example'
 dst = ROOT / '.env'
 
+
 if not src.is_file():
-    print("[ERROR] .env.example 파일이 없습니다.")
+    print(f"[ERROR] .env.example 파일이 없습니다. 경로: {src}")
     exit(1)
 
 shutil.copyfile(src, dst)
