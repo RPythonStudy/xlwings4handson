@@ -25,10 +25,12 @@ R과 Python, Quarto 기반 웹사이트 개발 프로젝트 준비과정에서 �
 
 
 ## Logging in Python 
-- `src/common/logger.py` 사용
-- .env파일로부터 PROJECT_NAME, LOG_LEVEL, SERVICE_LOG_PATH 등 로딩
-- 정책상 logs 폴더 직접생성해야 하고, 권한 오류 발생가능
-- config/logging.yml 파일을 통해 로깅 설정 관리
+- 로깅을 구현한 파일 위치: src/common/logger.py
+- syspath에 src를 추가했으므로 `from common.logger import log_info`와 같이 import
+- .env파일로부터 PROJECT_NAME, LOG_LEVEL, SERVICE_LOG_PATH 로딩
+- config/logging.yml 파일로부터 로그포맷과 같은 복잡한 정책 관리
+- 개인정보호 logging framework를 차용해 왔기 때문에 정책상 logs 폴더 직접생성해야 함 (단 설치 자동화 스크립트에서는 자동 생성구현됨). 폴더의 위치에 따라서는 권한문제 발생 가능
+- 구체적인 예시는 아래의 참조를 참고
 - 참조: [Python-Logging-Reference](wiki/Python-Logging-Reference.md)
 
 
