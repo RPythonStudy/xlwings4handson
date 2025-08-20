@@ -11,8 +11,9 @@ if os.environ.get('VIRTUAL_ENV') is None:
 # 1. 현재 파이썬 site-packages 위치
 site_packages = Path(sysconfig.get_paths()["purelib"])
 
-# 2. 프로젝트 루트와 src 경로
-project_root = Path(__file__).resolve().parent.parent
+
+# 2. 프로젝트 루트와 src 경로 (프로젝트 루트 기준)
+project_root = Path.cwd()
 src_path = project_root / "src"
 
 # 3. src 경로 검증

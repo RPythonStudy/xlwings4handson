@@ -109,18 +109,15 @@ if __name__ == "__main__":
 
     main()
 
-    # 운영체제와 무관하게 Zone.Identifier 파일 일괄 삭제 (파이썬 코드)
+    # 운영체제와 무관하게 Zone.Identifier 파일 일괄 삭제 (Path 기반)
     deleted_count = 0
-    for root, dirs, files in os.walk("."):
-        for file in files:
-            if file.endswith("Zone.Identifier"):
-                file_path = os.path.join(root, file)
-                try:
-                    os.remove(file_path)
-                    log_info(f"Deleted Zone.Identifier: {file_path}")
-                    deleted_count += 1
-                except Exception as e:
-                    log_error(f"Failed to delete {file_path}: {e}")
+    for file_path in Path.cwd().rglob("Zone.Identifier"):
+        try:
+            file_path.unlink()
+            log_info(f"Deleted Zone.Identifier: {file_path}")
+            deleted_count += 1
+        except Exception as e:
+            log_error(f"Failed to delete {file_path}: {e}")
     if deleted_count:
         log_info(f"Total Zone.Identifier files deleted: {deleted_count}")
     else:

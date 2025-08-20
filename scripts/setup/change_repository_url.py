@@ -1,8 +1,10 @@
+
 from common.logger import log_info
-import os
+from pathlib import Path
 import subprocess
 
-repo = os.path.basename(os.getcwd())
+# 프로젝트 루트 기준 repo명 추출
+repo = Path.cwd().name
 account = 'BenKorea' if repo == 'access-pet-data' else 'RPythonStudy'
 url = f'git@github.com:{account}/{repo}.git'
 subprocess.run(['git', 'remote', 'set-url', 'origin', url], check=True)

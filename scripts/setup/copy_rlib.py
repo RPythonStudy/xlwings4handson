@@ -1,12 +1,12 @@
+
+from pathlib import Path
 import shutil
-import os
 
-src_dir = os.path.join('src', 'Rlib')
-dst_dir = os.path.join('src', 'R')
+root = Path.cwd()
+src_dir = root / 'src' / 'Rlib'
+dst_dir = root / 'src' / 'R'
 
-os.makedirs(dst_dir, exist_ok=True)
-for fname in os.listdir(src_dir):
-    src_path = os.path.join(src_dir, fname)
-    dst_path = os.path.join(dst_dir, fname)
-    if os.path.isfile(src_path):
-        shutil.copy2(src_path, dst_path)
+dst_dir.mkdir(parents=True, exist_ok=True)
+for src_path in src_dir.iterdir():
+    if src_path.is_file():
+        shutil.copy2(src_path, dst_dir / src_path.name)
