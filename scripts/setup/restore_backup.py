@@ -64,7 +64,7 @@ def main():
         log_error(f"No config folder in backup: {config_backup}")
 
     # 복사 대상 파일
-    for f in ["requirements.txt", "renv.lock", "index.qmd", ".env", ".env.example"]:
+    for f in ["requirements.txt", "renv.lock", "index.qmd", ".env", ".env.example", "Makefile_project"]:
         copy_item(backup_dir / f, current_dir / f)
 
     # src 폴더 처리

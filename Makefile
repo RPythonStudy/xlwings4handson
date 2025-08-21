@@ -39,4 +39,8 @@ check:
 	python scripts/setup/check_syspath.py
 	@echo "[INFO] syspath 체크 완료"
 
-include Makefile_project	
+# backup: 현재 폴더를 backup/{폴더명}-backup으로 복사 (.venv, renv 제외)
+backup:
+	python scripts/setup/backup.py
+
+# include Makefile_project
