@@ -27,9 +27,10 @@ def copy_item(src: Path, dst: Path):
         log_error(f"Failed to restore {src} -> {dst}: {e}")
 
 def main():
-    # 현재 폴더와 백업 폴더 정의
+
+    # 현재 폴더와 백업 폴더 정의 (같은 depth의 backup/{현재폴더명}-backup)
     current_dir = Path.cwd()
-    backup_dir = current_dir.parent / f"{current_dir.name}-backup"
+    backup_dir = current_dir.parent / "backup" / f"{current_dir.name}-backup"
 
     if not backup_dir.exists():
         log_error(f"Backup folder not found: {backup_dir}")
