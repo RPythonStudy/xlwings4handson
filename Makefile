@@ -38,3 +38,5 @@ rlib:
 check:
 	python scripts/setup/check_syspath.py
 	@echo "[INFO] syspath 체크 완료"
+
+include Makefile_project	
