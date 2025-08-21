@@ -67,6 +67,7 @@ def main():
     for f in ["requirements.txt", "renv.lock", "index.qmd", ".env", ".env.example", "Makefile_project"]:
         copy_item(backup_dir / f, current_dir / f)
 
+
     # src 폴더 처리
     src_backup = backup_dir / "src"
     src_current = current_dir / "src"
@@ -77,6 +78,22 @@ def main():
                 copy_item(sub, src_current / sub.name)
     else:
         log_error(f"No src folder in backup: {src_backup}")
+
+    # scripts 폴더 복원 (quarto, setup 제외)
+    scripts_backup = backup_dir / "scripts"
+    scripts_current = current_dir / "scripts"
+    scripts_exclude = {"quarto", "setup"}
+    if scripts_backup.exists():
+        for item in scripts_backup.iterdir():
+            if item.is_dir() and item.name in scripts_exclude:
+                continue
+            dest = scripts_current / item.name
+            if item.is_dir():
+                shutil.copytree(item, dest, dirs_exist_ok=True)
+            elif item.is_file():
+                shutil.copy2(item, dest)
+    else:
+        log_error(f"No scripts folder in backup: {scripts_backup}")
 
     # wiki 폴더 restore: 기존 파일 중 일부를 제외하고 삭제 후 백업에서 복사
     wiki_backup = backup_dir / "wiki"
@@ -119,7 +136,17 @@ if __name__ == "__main__":
             deleted_count += 1
         except Exception as e:
             log_error(f"Failed to delete {file_path}: {e}")
+
     if deleted_count:
         log_info(f"Total Zone.Identifier files deleted: {deleted_count}")
     else:
         log_info("No Zone.Identifier files found for deletion.")
+
+    # 복원 후 requirements.txt 패키지 자동 설치
+    import subprocess
+    req_file = Path.cwd() / "requirements.txt"
+    if req_file.is_file():
+        subprocess.run(["pip", "install", "-r", str(req_file)], check=True)
+        log_info("requirements.txt 패키지 설치 완료")
+    else:
+        log_info("requirements.txt 파일이 없어 패키지 설치를 건너뜁니다.")
