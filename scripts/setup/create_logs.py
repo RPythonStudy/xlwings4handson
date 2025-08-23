@@ -36,12 +36,13 @@ if log_dir.suffix:  # 확장자가 있으면 파일 경로로 간주
 if not log_dir.is_dir():
     log_dir.mkdir(parents=True, exist_ok=True)
     print(f"[INFO] logs 폴더 생성: {log_dir}")
-    # 소유권 변경 (root로 실행 시)
+    # 소유권 및 권한 변경 (유저:유저, 755)
     try:
-        user = os.getenv("SUDO_USER") or getpass.getuser()
-        shutil.chown(str(log_dir), user=user)
-        print(f"[INFO] 소유자 변경: {user}")
+        user = getpass.getuser()
+        shutil.chown(str(log_dir), user=user, group=user)
+        os.chmod(str(log_dir), 0o755)
+        print(f"[INFO] 소유자 및 권한 변경: {user}:{user}, 755")
     except Exception as e:
-        print(f"[WARN] 소유자 변경 실패: {e}")
+        print(f"[WARN] 소유자/권한 변경 실패: {e}")
 else:
     print(f"[INFO] 이미 폴더 존재: {log_dir}")

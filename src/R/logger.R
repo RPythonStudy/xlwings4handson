@@ -10,18 +10,20 @@ dotenv::load_dot_env(file = here::here(".env"))
 
 
 # 환경변수 읽기 및 기본값
+
 LOG_LEVEL <- toupper(Sys.getenv("LOG_LEVEL", "DEBUG"))
 PROJECT_NAME <- Sys.getenv("PROJECT_NAME", "Template")
-SERVICE_LOG_PATH <- Sys.getenv("SERVICE_LOG_PATH", "logs/dev.log")
+LOG_PATH <- Sys.getenv("LOG_PATH", "logs")
+LOG_PATH <- gsub("\\{PROJECT_NAME\\}", PROJECT_NAME, LOG_PATH)
 
 # 로그 디렉토리 체크
-log_dir <- dirname(SERVICE_LOG_PATH)
+log_dir <- dirname(LOG_PATH)
 if (!dir.exists(log_dir)) {
   stop(sprintf("로그 디렉토리가 없습니다: %s", log_dir))
 }
 
 # 로그 파일 경로
-log_file <- SERVICE_LOG_PATH
+log_file <- file.path(LOG_PATH, paste0(PROJECT_NAME, ".log"))
 
 # 콘솔/파일 동시 출력
 log_appender(appender_tee(log_file))
