@@ -6,6 +6,7 @@ create_logs.py
 
 from pathlib import Path
 import os
+import platform
 from dotenv import load_dotenv
 import getpass
 import shutil
@@ -20,8 +21,13 @@ load_dotenv(ENV_FILE)
 
 log_path = os.getenv('LOG_PATH')
 project_name = os.getenv('PROJECT_NAME', 'default')
+os_name = platform.system()
 if log_path:
     log_path = log_path.replace('{PROJECT_NAME}', project_name)
+    if os_name == "Windows":
+        log_path = log_path.replace('%USERPROFILE%', os.environ.get('USERPROFILE', ''))
+    elif os_name == "Darwin":
+        log_path = log_path.replace('$HOME', os.environ.get('HOME', ''))
 
 print(log_path)
 if not log_path:
