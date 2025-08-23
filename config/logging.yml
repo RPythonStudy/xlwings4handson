@@ -1,10 +1,12 @@
 version: 1
 disable_existing_loggers: false
 
-# (참고) 경로와 프로젝트명은 .env에서 설정합니다.
-#   PROJECT_NAME=myproject
-#   SERVICE_LOG_PATH=/var/log/myproject/service.log
-#   AUDIT_LOG_PATH=/var/log/myproject/audit.log
+# 경로와 프로젝트명은 .env에서 설정합니다.
+# PROJECT_NAME=myproject
+# LOG_PATH=/var/log/{PROJECT_NAME}    # Linux/WSL2
+# LOG_PATH=$HOME/Library/Logs/{PROJECT_NAME} # macOS
+# LOG_PATH=%USERPROFILE%\AppData\Local\{PROJECT_NAME}\logs # Windows
+
 
 formatters:
   simple:
@@ -25,7 +27,7 @@ handlers:
     class: logging.FileHandler
     level: NOTSET
     formatter: json
-    filename: ${SERVICE_LOG_PATH}
+    filename: ${LOG_PATH}/service.log
     encoding: utf-8
     delay: true
 
@@ -33,7 +35,7 @@ handlers:
     class: logging.FileHandler
     level: NOTSET
     formatter: json
-    filename: ${AUDIT_LOG_PATH}
+    filename: ${LOG_PATH}/audit.log
     encoding: utf-8
     delay: true
 

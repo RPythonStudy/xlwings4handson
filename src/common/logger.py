@@ -1,18 +1,16 @@
-# rpy-quarto-template/src/common/logger.py
+# {PROJECT_ROOT}/src/common/logger.py
 """
 AI-최적화 로깅 유틸리티
 - 2025-08-12 (rev.AI-3)
 - 특징:
   - .env + logging.yml 기반 동적 설정
-  - YAML 전역(키/값) 환경변수 치환: ${PROJECT_NAME}, ${SERVICE_LOG_PATH}, ${AUDIT_LOG_PATH}, ...
+  - YAML 전역(키/값) 환경변수 치환: ${PROJECT_NAME}, ${LOG_PATH}...
   - 파일 핸들러의 경로/권한 검증(자동 생성 금지)
   - LOG_LEVEL로 root/서브 로거 레벨 일괄 오버라이드
   - 프로젝트 로거 자동 보장(없으면 생성)
   - audit 로거의 stdout 출력 금지 보장(정책 위반 시 예외)
   - get_logger, log_info 등 래퍼 제공
 """
-from __future__ import annotations
-
 import os
 import re
 import socket
@@ -25,10 +23,8 @@ from typing import Any, Dict, Optional
 import yaml
 from dotenv import load_dotenv
 
-# .env 로드 (ENV 우선)
 load_dotenv(override=True)
 
-# 의미 있는 기본값
 PROJECT_NAME = os.getenv("PROJECT_NAME", "default")
 VALID_LEVELS = {"CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"}
 
@@ -40,10 +36,13 @@ def _get_log_level() -> str:
 
 
 def _expand_env_placeholders(value: str) -> str:
-    """문자열 내 ${VAR}/$VAR 환경변수 치환 (PROJECT_NAME 우선)."""
+    """문자열 내 ${VAR}/$VAR 환경변수 치환 (PROJECT_NAME, LOG_PATH 우선)."""
     if not isinstance(value, str):
         return value
     value = value.replace("${PROJECT_NAME}", PROJECT_NAME).replace("$PROJECT_NAME", PROJECT_NAME)
+    value = value.replace("{PROJECT_NAME}", PROJECT_NAME)
+    log_path = os.getenv("LOG_PATH", "")
+    value = value.replace("${LOG_PATH}", log_path).replace("$LOG_PATH", log_path)
     return os.path.expandvars(value)
 
 
@@ -202,18 +201,14 @@ def audit_log(action: str, detail: Optional[Dict[str, Any]] = None,
 def log_debug(msg: str) -> None:
     get_logger().debug(msg)
 
-
 def log_info(msg: str) -> None:
     get_logger().info(msg)
-
 
 def log_warn(msg: str) -> None:
     get_logger().warning(msg)
 
-
 def log_error(msg: str) -> None:
     get_logger().error(msg)
-
 
 def log_critical(msg: str) -> None:
     get_logger().critical(msg)

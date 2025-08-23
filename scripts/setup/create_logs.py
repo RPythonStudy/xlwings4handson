@@ -1,11 +1,14 @@
+# {PROJECT_ROOT}/scripts/setup/create_logs.py
 """
-create_log_path.py
-.env 파일에서 로그 경로를 읽어 logs 폴더 및 로그 파일을 생성
+create_logs.py
+.env 파일에서 LOG_PATH를 읽어 logs 폴더 및 로그 파일을 생성
 """
 
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import getpass
+import shutil
 
 ROOT = Path.cwd()
 ENV_FILE = ROOT / '.env'
@@ -14,16 +17,31 @@ if not ENV_FILE.is_file():
     exit(1)
 
 load_dotenv(ENV_FILE)
-service_log_path = os.getenv('SERVICE_LOG_PATH')
-audit_log_path = os.getenv('AUDIT_LOG_PATH')
 
-for log_path in [service_log_path, audit_log_path]:
-    if not log_path:
-        print(f"[WARN] 로그 경로가 .env에 정의되어 있지 않습니다: {log_path}")
-        continue
-    log_dir = Path(log_path).parent
-    if not log_dir.is_dir():
-        log_dir.mkdir(parents=True, exist_ok=True)
-        print(f"[INFO] logs 폴더 생성: {log_dir}")
-    else:
-        print(f"[INFO] 이미 폴더 존재: {log_dir}")
+log_path = os.getenv('LOG_PATH')
+project_name = os.getenv('PROJECT_NAME', 'default')
+if log_path:
+    log_path = log_path.replace('{PROJECT_NAME}', project_name)
+
+print(log_path)
+if not log_path:
+    print("[ERROR] .env에 LOG_PATH가 정의되어 있지 않습니다.")
+    exit(1)
+
+# log_path를 Path 객체로 변환
+log_dir = Path(log_path)
+if log_dir.suffix:  # 확장자가 있으면 파일 경로로 간주
+    log_dir = log_dir.parent
+
+if not log_dir.is_dir():
+    log_dir.mkdir(parents=True, exist_ok=True)
+    print(f"[INFO] logs 폴더 생성: {log_dir}")
+    # 소유권 변경 (root로 실행 시)
+    try:
+        user = os.getenv("SUDO_USER") or getpass.getuser()
+        shutil.chown(str(log_dir), user=user)
+        print(f"[INFO] 소유자 변경: {user}")
+    except Exception as e:
+        print(f"[WARN] 소유자 변경 실패: {e}")
+else:
+    print(f"[INFO] 이미 폴더 존재: {log_dir}")

@@ -11,7 +11,7 @@ env:
 	@echo "[INFO] .env 파일 설정 완료"
 
 logs:
-	python scripts/setup/create_logs.py
+	sudo $(which python) scripts/setup/create_logs.py
 	@echo "[INFO] 로그 경로 및 파일 생성 완료"
 
 syspath:
