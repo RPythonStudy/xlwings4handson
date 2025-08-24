@@ -71,7 +71,7 @@ def _require_parent_exists_and_writable(path: Path, handler_name: str) -> None:
             f"[{handler_name}] 로그 디렉토리가 존재하지 않습니다: {parent}\n"
             "- Linux 예: /var/log/<project>, ~/logs\n"
             "- Windows 예: C:\\logs, %USERPROFILE%\\logs\n"
-            "- .env의 SERVICE_LOG_PATH 또는 AUDIT_LOG_PATH 설정을 확인하세요."
+            "- .env의 LOG_PATH 설정을 확인하세요."
         )
     if not os.access(parent, os.W_OK):
         raise PermissionError(

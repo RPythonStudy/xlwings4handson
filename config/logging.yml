@@ -1,12 +1,10 @@
 version: 1
 disable_existing_loggers: false
 
-# 경로와 프로젝트명은 .env에서 설정합니다.
-# PROJECT_NAME=myproject
-# LOG_PATH=/var/log/{PROJECT_NAME}    # Linux/WSL2
-# LOG_PATH=$HOME/Library/Logs/{PROJECT_NAME} # macOS
-# LOG_PATH=%USERPROFILE%\AppData\Local\{PROJECT_NAME}\logs # Windows
-
+# (참고) 경로와 프로젝트명은 .env에서 설정합니다.
+#   PROJECT_NAME=myproject
+#   LOG_PATH=/var/log/myproject/logs
+#   (로그 파일명은 핸들러에서 /service.log, /audit.log 등으로 조합)
 
 formatters:
   simple:
