@@ -14,7 +14,7 @@ logs:
 ifeq ($(OS),Windows_NT)
 	python scripts/setup/create_logs.py
 else
-	sudo $(which python) scripts/setup/create_logs.py
+	sudo `which python` scripts/setup/create_logs.py
 endif
 	@echo "[INFO] Log path and file creation complete."
 
