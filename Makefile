@@ -7,7 +7,8 @@ venv:
 
 activate:
 ifeq ($(OS),Windows_NT)
-	@call .venv\Scripts\activate
+    @echo "명령 프롬프트(cmd)에서 아래 명령을 직접 입력하세요:"
+    @echo "call .venv\\Scripts\\activate"
 else
 	@echo "가상환경을 활성화하려면 아래 명령을 직접 입력하세요:"
 	@echo "source .venv/bin/activate"
