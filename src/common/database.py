@@ -1,4 +1,4 @@
-# common/database.py - 데이터베이스 연결 통합 관리
+# {PROJECT_ROOT}/src/common/database.py - 데이터베이스 연결 통합 관리
 import psycopg2
 import os
 from common.logger import log_error, log_debug
