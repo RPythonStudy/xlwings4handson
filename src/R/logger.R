@@ -1,3 +1,8 @@
+# {PROJECT_ROOT}/src/R/logger.R
+# last updated: 2025-09-01
+# R용 로거 설정이지만 Python과 같이 .env에서 설정값을 읽도록 함
+
+
 library(logger)
 
 

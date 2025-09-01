@@ -1,4 +1,7 @@
-# {PROJECT_ROOT}/src/common/database.py - 데이터베이스 연결 통합 관리
+# src/common/database.py
+# last updated: 2025-090-01
+# 스크립트 이름에 대해서는 변경 고려 중
+
 import psycopg2
 import os
 from common.logger import log_error, log_debug
