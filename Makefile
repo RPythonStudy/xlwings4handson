@@ -4,10 +4,13 @@
 
 venv:
 	python scripts/setup/setup_pyenv.py
-	@echo "[setup_pyenv] .pyenv 설정 완료"
 	python scripts/setup/setup_venv.py
 	@echo "[setup_venv] Python virtual environment created."
-
+	
+	
+activate:
+	source /home/ben/projects/rpy-quarto-template/.venv/bin/activate
+  
 # 개별 실행 가능한 타겟 분리
 env:
 	python scripts/setup/setup_env.py
