@@ -10,7 +10,7 @@ from pathlib import Path
 import platform
 
 os_name = platform.system()
-print(f"운영체제: {os_name}")
+print(f"[setup_env] 운영체제: {os_name}")
 
 ROOT = Path.cwd()
 CUR_DIR_NAME = ROOT.name
@@ -19,7 +19,7 @@ dst = ROOT / '.env'
 env_file = ROOT / '_environment'
 
 if not src.is_file():
-    print(f"[ERROR] .env.example 파일이 없습니다. 경로: {src}")
+    print(f"[setup_env] .env.example 파일이 없습니다. 경로: {src}")
     exit(1)
 
 shutil.copyfile(src, dst)
@@ -41,16 +41,10 @@ else:
 content = re.sub(r'^LOG_PATH=.*', f'LOG_PATH={log_path.replace("\\", r"\\\\")}', content, flags=re.MULTILINE)
 
 dst.write_text(content, encoding='utf-8')
-print("[INFO] .env 파일이 생성되고, 경로 및 프로젝트명이 현재 폴더명으로 자동 치환되었습니다.")
-
-try:
-    shutil.copyfile(dst, src)
-    print("[INFO] .env.example 파일이 .env로부터 복사 생성되었습니다.")
-except Exception as e:
-    print(f"[ERROR] .env.example 복사 실패: {e}")
+print("[setup_env] .env 파일이 생성되고, 경로 및 프로젝트명이 현재 폴더명으로 자동 치환되었습니다.")
 
 try:
     shutil.copyfile(dst, env_file)
-    print("[INFO] _environment 파일이 .env로부터 복사 생성되었습니다.")
+    print("[setup_env] _environment 파일이 .env로부터 복사 생성되었습니다.")
 except Exception as e:
-    print(f"[ERROR] _environment 복사 실패: {e}")
+    print(f"[setup_env] _environment 복사 실패: {e}")

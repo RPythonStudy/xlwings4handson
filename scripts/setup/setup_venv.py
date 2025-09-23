@@ -1,16 +1,20 @@
-# scripts/setup/setup_venv.py
-# OS별로 분기하여 파이썬 가상환경 생성 및 requirements.txt 설치
-# Windows에서 CMD, PowerShell, Git Bash 모두 인식하도록 수정
-# last modified: 2025-09-01
+"""
+파일명: scripts/setup/setup_venv.py
+목적: 프로젝트 파이썬 가상환경 생성 및 패키지 설치
+설명: 운영체제별 경로를 고려하여 subprocess로 구현
+변경이력:
+  - 2025-09-24: print(f"[setup_venv] ...") 표준 출력 포맷 적용
+""" 
 
-import sys
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path.cwd()
 VENV_PATH = ROOT / ".venv"
 REQ_PATH = ROOT / "requirements.txt"
 
+# 운영체제별 경로 설정
 platform = sys.platform
 
 if platform.startswith("win"):

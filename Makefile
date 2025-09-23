@@ -7,18 +7,13 @@ venv:
 	python scripts/setup/setup_venv.py
 	@echo "[setup_venv] Python virtual environment created."
 	
-	
-activate:
-	source /home/ben/projects/rpy-quarto-template/.venv/bin/activate
-  
 # 개별 실행 가능한 타겟 분리
 env:
 	python scripts/setup/setup_env.py
-	@echo "[setup_env] .env file setup complete."
 
 logs:
 ifeq ($(OS),Windows_NT)
-	python scripts/setup/.py
+	python scripts/setup/create_logs.py
 else
 	sudo `which python` scripts/setup/create_logs.py
 endif

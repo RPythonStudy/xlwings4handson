@@ -1,9 +1,14 @@
-# scripts/setup/setup_pyenv.py
-# .pyenv를 인식하여 pyenv local 버전을 설정
-# last modified: 2025-09-23
+"""
+파일명: scripts/setup/setup_pyenv.py
+목적: 프로젝트 파이썬 버전을 인식하여 버전 설정
+설명: .python-version 파일을 읽어 pyenv local 명령으로 버전 설정
+변경이력:
+  - 2025-09-24: print(f"[setup_pyenv] ...") 표준 출력 포맷 적용
+""" 
 
-from pathlib import Path
 import subprocess
+from pathlib import Path
+
 
 version_file = Path(".python-version")
 if version_file.exists():
