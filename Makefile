@@ -51,4 +51,7 @@ backup:
 freeze:
 	pip freeze > requirements.txt
 
+update:
+	python scripts/setup/update.py	
+
 # include Makefile_project
