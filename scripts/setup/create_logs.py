@@ -1,7 +1,9 @@
-# {PROJECT_ROOT}/scripts/setup/create_logs.py
 """
-create_logs.py
-.env 파일에서 LOG_PATH를 읽어 logs 폴더 및 로그 파일을 생성
+파일명: scripts/setup/create_logs.py
+목적: 로그 파일 및 폴더 생성
+설명: .env 파일에서 LOG_PATH를 읽어 logs 폴더 및 로그 파일을 생성
+변경이력:
+  - 2025-09-24: 새로 생성 (BenKorea)
 """
 
 from pathlib import Path

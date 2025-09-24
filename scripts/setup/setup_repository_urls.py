@@ -1,7 +1,10 @@
-# scripts/setup/setup_repository_urls.py
-# git remote URL과 wiki 서브모듈 URL을 변경하고, 모든 서브모듈을 master 브랜치로 체크아웃
-# last modified: 2025-09-24
-# log_info(f"[setup_repository_urls] ...") 형태로 출력
+"""
+파일명: scripts/setup/setup_repository_urls.py
+목적: Git 원격 저장소 URL 및 서브모듈 URL 설정
+설명: Git 원격 저장소 URL을 변경하고, 모든 서브모듈을 master 브랜치로 체크아웃
+변경이력:
+  - 2025-09-24: print(f"[setup_repository_urls] ...") 표준 출력 포맷 적용
+""" 
 
 
 from common.logger import log_info

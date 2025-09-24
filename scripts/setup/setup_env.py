@@ -1,8 +1,12 @@
-# scripts/setup/setup_env.py
-# .env.example을 복사하여 .env 생성 후, 프로젝트 폴더명과 경로 자동 치환
-# _environment 파일까지 생성
-# last modified: 2025-09-07
-# 경로의 \ -> \\ 치환 추가
+"""
+파일명: scripts/setup/setup_env.py
+목적: .env 및 _environment 생성 스크립트
+설명: .env 파일 생성 및 _environment 복사
+변경이력:
+  - 2025-09-24: 모듈 메타데이터 추가 (BenKorea)
+  - 2025-09-07: 경로의 \ -> \\ 치환 추가 (BenKorea)
+"""
+
 
 import shutil
 import re
