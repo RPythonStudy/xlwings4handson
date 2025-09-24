@@ -19,7 +19,9 @@ def backup_data(project_root: Path):
         log_error(f"[backup.py] data 폴더가 존재하지 않습니다: {data_dir}")
         return
     project_name = project_root.name
-    backup_root = project_root / 'backup' / project_name
+    # 프로젝트 폴더의 상위 폴더가 projects라고 가정
+    projects_root = project_root.parent
+    backup_root = projects_root / 'backup' / project_name
     backup_root.mkdir(parents=True, exist_ok=True)
     backup_dir = backup_root / "data"
     if backup_dir.exists():
