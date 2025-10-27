@@ -8,6 +8,7 @@
 """
 
 import subprocess
+import platform
 from pathlib import Path
 
 
@@ -23,9 +24,18 @@ def main():
         print("[setup-pyenv] .python-version 파일이 비어있습니다.")
         return
     
+    # 플랫폼별 pyenv 실행 방식 결정
+    system = platform.system().lower()
+    
     # pyenv local 실행
     try:
-        subprocess.run(["pyenv", "local", version], check=True, shell=True)
+        if system == "windows":
+            # Windows: shell=True 필요 (pyenv-win은 .bat 스크립트)
+            subprocess.run(f"pyenv local {version}", check=True, shell=True)
+        else:
+            # Linux/macOS/WSL2: shell=False 권장
+            subprocess.run(["pyenv", "local", version], check=True)
+        
         print(f"[setup-pyenv] Python {version} 설정 완료")
     except (subprocess.CalledProcessError, FileNotFoundError):
         print(f"[setup-pyenv] 실패 - 수동 실행: pyenv local {version}")
